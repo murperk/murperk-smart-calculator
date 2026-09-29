@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Murperk Smart Website Payment Calculator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111827;
+    }
+
+    body {
+      padding: 20px;
+    }
+
+    #murperk-calculator {
+      width: 100%;
+      max-width: 760px;
+      margin: 20px auto;
+    }
+
+    .mp-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+    }
+
+    .mp-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .mp-header h2 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .mp-header p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .mp-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 25px 0 12px;
+      color: #111827;
+    }
+
+    .mp-select {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #fff;
+      font-size: 16px;
+      color: #111827;
+      cursor: pointer;
+    }
+
+    .mp-summary {
+      margin-top: 25px;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 22px;
+    }
+
+    .mp-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 15px;
+    }
+
+    .mp-row:last-child {
+      border-bottom: none;
+    }
+
+    .mp-row span:last-child {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .mp-total {
+      margin-top: 15px;
+      padding: 18px;
+      border-radius: 12px;
+      background: #111827;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .mp-total-label {
+      font-size: 15px;
+    }
+
+    .mp-total-value {
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .mp-note {
+      margin-top: 18px;
+      padding: 15px;
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      color: #713f12;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .mp-step {
+      margin-top: 28px;
+      padding-top: 25px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .mp-step-number {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #111827;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    .mp-step h3 {
+      display: inline;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .mp-step p {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 12px 0 18px;
+    }
+
+    .mp-button {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .mp-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.94;
+    }
+
+    .mp-primary {
+      background: #0070ba;
+      color: #ffffff;
+    }
+
+    .mp-secondary {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .mp-plan-box {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .mp-plan-box strong {
+      color: #111827;
+    }
+
+    .mp-small {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 10px;
+      }
+
+      #murperk-calculator {
+        margin: 10px auto;
+      }
+
+      .mp-card {
+        padding: 22px;
+        border-radius: 14px;
+      }
+
+      .mp-header h2 {
+        font-size: 26px;
+      }
+
+      .mp-header p {
+        font-size: 15px;
+      }
+
+      .mp-row {
+        font-size: 14px;
+        gap: 12px;
+      }
+
+      .mp-total {
+        padding: 16px;
+      }
+
+      .mp-total-value {
+        font-size: 21px;
+      }
+
+      .mp-step h3 {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="murperk-calculator">
+
+    <div class="mp-card">
+
+      <div class="mp-header">
+        <h2>Murperk Smart Website</h2>
+
+        <p>
+          Get your professional website now and spread the remaining website cost
+          over a payment period that works for you.
+        </p>
+      </div>
+
+      <div class="mp-section-title">
+        Choose Your Payment Period
+      </div>
+
+      <select id="mp-months" class="mp-select">
+        <option value="1">1 Month</option>
+        <option value="2">2 Months</option>
+        <option value="3">3 Months</option>
+        <option value="4">4 Months</option>
+        <option value="5">5 Months</option>
+        <option value="6">6 Months</option>
+        <option value="7">7 Months</option>
+        <option value="8">8 Months</option>
+        <option value="9">9 Months</option>
+        <option value="10">10 Months</option>
+        <option value="11" selected>11 Months</option>
+      </select>
+
+      <div class="mp-summary">
+
+        <div class="mp-row">
+          <span>Website package price</span>
+          <span>$144.00</span>
+        </div>
+
+        <div class="mp-row">
+          <span>Initial website development payment</span>
+          <span>$12.00</span>
+        </div>
+
+        <div class="mp-row">
+          <span>Remaining website balance</span>
+          <span>$132.00</span>
+        </div>
+
+        <div class="mp-row">
+          <span>Domain registration</span>
+          <span>$20.00</span>
+        </div>
+
+        <div class="mp-row">
+          <span>First month hosting</span>
+          <span>$4.97</span>
+        </div>
+
+        <div class="mp-total">
+          <span class="mp-total-label">Amount Due Today</span>
+          <span class="mp-total-value">$36.97</span>
+        </div>
+
+        <div style="margin-top:20px;"></div>
+
+        <div class="mp-row">
+          <span>Website balance per month</span>
+          <span id="mp-website-monthly">$12.00</span>
+        </div>
+
+        <div class="mp-row">
+          <span>Monthly hosting</span>
+          <span>$4.97</span>
+        </div>
+
+        <div class="mp-total">
+          <span class="mp-total-label">Monthly Payment</span>
+          <span class="mp-total-value" id="mp-monthly-total">$16.97</span>
+        </div>
+
+      </div>
+
+      <div class="mp-note">
+        <strong>Important:</strong>
+        Your $36.97 initial payment covers the initial website development
+        payment, domain registration and first month hosting. The remaining
+        $132 website balance is paid according to the payment period you select
+        above. Hosting continues at $4.97 per month while your website is hosted.
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="mp-step">
+
+        <span class="mp-step-number">1</span>
+        <h3>Pay Your Initial Amount</h3>
+
+        <p>
+          Pay $36.97 today to begin your website project. This payment covers
+          the initial development payment, domain registration and first month
+          hosting.
+        </p>
+
+        <a
+          href="https://www.paypal.com/ncp/payment/NZ3H3FEWE6EZY"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mp-button mp-primary"
+        >
+          Pay $36.97 Today
+        </a>
+
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="mp-step">
+
+        <span class="mp-step-number">2</span>
+        <h3>Set Up Your Monthly Payment</h3>
+
+        <p>
+          After completing your initial payment, continue below to set up the
+          monthly payment plan you selected.
+        </p>
+
+        <div class="mp-plan-box">
+
+          <strong>Selected plan:</strong>
+          <span id="mp-selected-plan">11 Months</span>
+          <br>
+
+          <strong>Monthly payment:</strong>
+          <span id="mp-selected-payment">$16.97</span>
+
+        </div>
+
+        <a
+          id="mp-paypal-subscription"
+          href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-4V6107114A1201804NK5WH4I"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mp-button mp-secondary"
+          style="margin-top:15px;"
+        >
+          Continue to Monthly Plan
+        </a>
+
+      </div>
+
+      <div class="mp-small">
+        By proceeding with a payment plan, you agree to the payment terms
+        presented during PayPal checkout.
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+
+      const plans = {
+
+        1: {
+          monthly: 136.97,
+          website: 132.00,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-61909072A6899391SNK5W2JY"
+        },
+
+        2: {
+          monthly: 70.97,
+          website: 66.00,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1E009101HH729705VNK5WYZA"
+        },
+
+        3: {
+          monthly: 48.97,
+          website: 44.00,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-6JL047728N616092YNK5WXOI"
+        },
+
+        4: {
+          monthly: 37.97,
+          website: 33.00,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2BC448709L790535ENK5WV4A"
+        },
+
+        5: {
+          monthly: 31.37,
+          website: 26.40,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2BG74589SE7639234NK5WT4Q"
+        },
+
+        6: {
+          monthly: 26.97,
+          website: 22.00,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-0PJ99831J3194522NNK5WSWI"
+        },
+
+        7: {
+          monthly: 23.83,
+          website: 18.86,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-56A750585H453661GNK5WRJY"
+        },
+
+        8: {
+          monthly: 21.47,
+          website: 16.50,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-5L059655CJ271234TNK5WPUI"
+        },
+
+        9: {
+          monthly: 19.64,
+          website: 14.67,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-4MV20142Y0718722ENK5WNAQ"
+        },
+
+        10: {
+          monthly: 18.17,
+          website: 13.20,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-2KV014592J250241FNK5WK7I"
+        },
+
+        11: {
+          monthly: 16.97,
+          website: 12.00,
+          link: "https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-4V6107114A1201804NK5WH4I"
+        }
+
+      };
+
+      const monthsSelect =
+        document.getElementById("mp-months");
+
+      const websiteMonthly =
+        document.getElementById("mp-website-monthly");
+
+      const monthlyTotal =
+        document.getElementById("mp-monthly-total");
+
+      const selectedPlan =
+        document.getElementById("mp-selected-plan");
+
+      const selectedPayment =
+        document.getElementById("mp-selected-payment");
+
+      const subscriptionButton =
+        document.getElementById("mp-paypal-subscription");
+
+      function updateCalculator() {
+
+        const months =
+          parseInt(monthsSelect.value, 10);
+
+        const plan =
+          plans[months];
+
+        websiteMonthly.textContent =
+          "$" + plan.website.toFixed(2);
+
+        monthlyTotal.textContent =
+          "$" + plan.monthly.toFixed(2);
+
+        selectedPlan.textContent =
+          months + (months === 1 ? " Month" : " Months");
+
+        selectedPayment.textContent =
+          "$" + plan.monthly.toFixed(2);
+
+        subscriptionButton.href =
+          plan.link;
+      }
+
+      monthsSelect.addEventListener(
+        "change",
+        updateCalculator
+      );
+
+      updateCalculator();
+
+    })();
+  </script>
+
+</body>
+</html>
